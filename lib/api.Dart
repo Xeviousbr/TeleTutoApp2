@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class API {
 
@@ -11,8 +11,8 @@ class API {
     final int erro = (ret["Erro"]) ?? 1;
     if (erro == 0) {
       final int idUser = (ret["id"]) ?? 0;
-      final prefer = await SharedPreferences.getInstance();
-      await prefer.setInt('ID', idUser);
+      // final prefer = await SharedPreferences.getInstance();
+      // await prefer.setInt('ID', idUser);
       return true;
     } else {
       return false;      
