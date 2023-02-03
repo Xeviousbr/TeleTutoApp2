@@ -11,12 +11,17 @@ class API {
     final int erro = (ret["Erro"]) ?? 1;
     if (erro == 0) {
       final int idUser = (ret["id"]) ?? 0;
-      // final prefer = await SharedPreferences.getInstance();
-      // await prefer.setInt('ID', idUser);
+      // final List perfis = (ret["Perfis"]) ?? [];
+      final int idEmpresa = (ret["idEmpresa"]) ?? 0;
+      print("idEmpresa = "+idEmpresa.toString());
+      final prefer = await SharedPreferences.getInstance();
+      await prefer.setInt('ID', idUser);
+      await prefer.setInt('idEmpresa', idEmpresa);
       return true;
     } else {
       return false;      
     }
+
   }
 
 }
