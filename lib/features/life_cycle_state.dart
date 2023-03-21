@@ -15,12 +15,12 @@ class _LifeCycleStateState extends State<LifeCycleState>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -29,8 +29,10 @@ class _LifeCycleStateState extends State<LifeCycleState>
     super.didChangeAppLifecycleState(state);
 
     if (state == AppLifecycleState.resumed) {
+      print("online");
       sendStatusToServer('online');
-    } else if (state == AppLifecycleState.paused) {
+    } else {
+      print("offline");
       sendStatusToServer('offline');
     }
   }
