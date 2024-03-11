@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:tele_tudo_app/LoginPageWebView.dart';
 import 'HomePage.dart';
 import 'api.dart';
 import 'package:tele_tudo_app/HomePage.dart';
@@ -61,19 +62,26 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(10)),
               padding: const EdgeInsets.all(15),
             ),
+
             onPressed: () {
-              API.VeLogin(user, password).then((logou) {
-                setState(() {
-                  if (logou) {
-                    Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  } else {
-                    debugPrint("login invalido");
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }
-                });
-              });
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    LoginPageWebView(user: user, password: password),
+              ));
             },
+            // onPressed: () {
+            //   API.VeLogin(user, password).then((logou) {
+            //     setState(() {
+            //       if (logou) {
+            //         Navigator.of(context).pushReplacement(
+            //             MaterialPageRoute(builder: (context) => HomePage()));
+            //       } else {
+            //         debugPrint("login invalido");
+            //         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            //       }
+            //     });
+            //   });
+            // },
             child: const Text(
               "Login",
               style: TextStyle(color: Colors.black, fontSize: 15),

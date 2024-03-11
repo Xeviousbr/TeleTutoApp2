@@ -4,24 +4,34 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class API {
 
-  static Future VeLogin(user, password) async {
-    String baseUrl = "http://www.tele-tudo.com/operacoes?op=9&user=" + user + "&pass=" + password;
-    final response = await http.get(Uri.parse(baseUrl));
-    var ret = json.decode(response.body);
-    final int erro = (ret["Erro"]) ?? 1;
-    if (erro == 0) {
-      final int idUser = (ret["id"]) ?? 0;
-      // final List perfis = (ret["Perfis"]) ?? [];
-      final int idEmpresa = (ret["idEmpresa"]) ?? 0;
-      print("idEmpresa = "+idEmpresa.toString());
-      final prefer = await SharedPreferences.getInstance();
-      await prefer.setInt('ID', idUser);
-      await prefer.setInt('idEmpresa', idEmpresa);
-      return true;
+  static Future<bool> VeLogin(String user, String password) async {
+    String baseUrl = "https://teletudo.com/api/login";
+    final response = await http.post(
+      Uri.parse(baseUrl),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: json.encode({
+        'user': user,
+        'password': password,
+      }),
+    );
+    if (response.statusCode == 200) {
+      var ret = json.decode(response.body);
+      final int erro = ret["Erro"] ?? 1;
+      if (erro == 0) {
+        final int idUser = ret["id"] ?? 0;
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setInt('ID', idUser);
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      return false;      
+      print('erro: ${response.statusCode}.');
+      return false;
     }
-
-  }
+  }  
 
 }
