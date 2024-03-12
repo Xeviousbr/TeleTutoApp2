@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Login Demo',
+      title: 'TeleTudo App MotoBoys',
       home: LoginPage(),
     );
   }
@@ -55,7 +55,16 @@ class _LoginPageState extends State<LoginPage> {
                 }
               },
               child: Text("Login"),
-            )
+            ),
+            SizedBox(height: 32), // Adiciona um espaço entre os botões
+            ElevatedButton(
+              onPressed: () {
+                // Ação para cadastrar um novo usuário
+                // Você pode navegar para uma nova tela de cadastro ou abrir um diálogo, por exemplo
+                print("Cadastrar novo usuário");
+              },
+              child: Text("Cadastrar Novo Usuário"),
+            ),
           ],
         ),
       ),
