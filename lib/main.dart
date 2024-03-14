@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'api.dart';
-import 'login_page.dart'; // Assuming your files are named login_page.dart and register_page.dart
+import 'login_page.dart';
 
 void main() => runApp(MyApp());
 
