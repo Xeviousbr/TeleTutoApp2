@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:tele_tudo_app/HomePage.dart';
 import 'dart:convert';
 import 'api.dart';
 import 'register_page.dart';
@@ -51,6 +52,9 @@ class _LoginPageState extends State<LoginPage> {
                 bool loginSuccessful = await API.VeLogin(user, password);
                 if (loginSuccessful) {
                   print("Login bem-sucedido!");
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
                 } else {
                   print("Falha no login.");
                 }

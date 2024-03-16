@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tele_tudo_app/HomePage.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -66,11 +67,24 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                // String user = _userController.text;
+                // String password = _passwordController.text;
                 // Aqui você irá incluir a lógica para enviar os dados para a sua API
-                print('Enviar dados para a API');
+                // bool registrationSuccessful = await API.registerUser(user, password);
+                bool registrationSuccessful = true;
+                if (registrationSuccessful) {
+                  print('Cadastro bem-sucedido');
+                  // Redireciona para a HomePage
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                } else {
+                  print('Falha no cadastro');
+                  // Mostre uma mensagem de erro ou alerta
+                }
               },
-              child: Text('Cadastrar'),
+              child: Text("Cadastrar"),
             ),
           ],
         ),
