@@ -68,6 +68,42 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
+                String nome = _nameController.text;
+                String email = _emailController.text;
+                String senha = _passwordController.text;
+                String cnh = _cnhController.text;
+
+                // Validação do nome
+                if (!validarNome(nome)) {
+                  mostrarMensagem(
+                      context, 'Por favor, insira o nome completo.');
+                  return;
+                }
+
+                // Validação do email
+                if (!validarEmail(email)) {
+                  mostrarMensagem(
+                      context, 'Por favor, insira um email válido.');
+                  return;
+                }
+
+                // Validação da senha
+                if (!validarSenha(senha)) {
+                  mostrarMensagem(context,
+                      'A senha não pode ser vazia e deve ter no mínimo 6 caracteres.');
+                  return;
+                }
+
+                if (!validarCNH(_cnhController.text)) {
+                  // Se a CNH for inválida, exibe um SnackBar com uma mensagem de erro
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                            'CNH inválida. Por favor, verifique o número informado.')),
+                  );
+                  return; // Interrompe a execução se a CNH for inválida
+                }
+
                 // String user = _userController.text;
                 // String password = _passwordController.text;
                 // Aqui você irá incluir a lógica para enviar os dados para a sua API
@@ -90,5 +126,50 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  bool validarNome(String nome) {
+    return nome.isNotEmpty;
+  }
+
+  bool validarSenha(String senha) {
+    return senha.isNotEmpty &&
+        senha.length >= 6; // Senha com no mínimo 6 caracteres
+  }
+
+  bool validarEmail(String email) {
+    // Expressão regular para validação de email
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = RegExp(pattern.toString());
+    return regex.hasMatch(email);
+  }
+
+  void mostrarMensagem(BuildContext context, String mensagem) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(mensagem)),
+    );
+  }
+
+  bool validarCNH(String cnh) {
+    String cnhSemFormatacao = cnh.replaceAll(RegExp(r'\D'), '');
+    if (cnhSemFormatacao.length != 11 || cnhSemFormatacao == "00000000000") {
+      return false;
+    }
+    int soma = 0;
+    for (int i = 0; i < 9; i++) {
+      soma += int.parse(cnhSemFormatacao[i]) * (9 - i);
+    }
+    int d1 = soma % 11;
+    d1 = d1 < 10 ? d1 : 0;
+    soma = 0;
+    for (int i = 0; i < 9; i++) {
+      soma += int.parse(cnhSemFormatacao[i]) * (10 - i);
+    }
+    soma += d1 * 2;
+    int d2 = soma % 11;
+    d2 = d2 < 10 ? d2 : 0;
+    return d1 == int.parse(cnhSemFormatacao[9]) &&
+        d2 == int.parse(cnhSemFormatacao[10]);
   }
 }
