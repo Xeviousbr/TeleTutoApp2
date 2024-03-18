@@ -7,7 +7,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  // Controladores para os campos de texto
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -17,7 +16,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
-    // É importante sempre descartar os controladores quando não forem mais necessários
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -72,30 +70,22 @@ class _RegisterPageState extends State<RegisterPage> {
                 String email = _emailController.text;
                 String senha = _passwordController.text;
                 String cnh = _cnhController.text;
-
-                // Validação do nome
                 if (!validarNome(nome)) {
                   mostrarMensagem(
                       context, 'Por favor, insira o nome completo.');
                   return;
                 }
-
-                // Validação do email
                 if (!validarEmail(email)) {
                   mostrarMensagem(
                       context, 'Por favor, insira um email válido.');
                   return;
                 }
-
-                // Validação da senha
                 if (!validarSenha(senha)) {
                   mostrarMensagem(context,
                       'A senha não pode ser vazia e deve ter no mínimo 6 caracteres.');
                   return;
                 }
-
                 if (!validarCNH(_cnhController.text)) {
-                  // Se a CNH for inválida, exibe um SnackBar com uma mensagem de erro
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text(
@@ -103,21 +93,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   );
                   return; // Interrompe a execução se a CNH for inválida
                 }
-
-                // String user = _userController.text;
-                // String password = _passwordController.text;
-                // Aqui você irá incluir a lógica para enviar os dados para a sua API
                 // bool registrationSuccessful = await API.registerUser(user, password);
                 bool registrationSuccessful = true;
                 if (registrationSuccessful) {
                   print('Cadastro bem-sucedido');
-                  // Redireciona para a HomePage
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => HomePage()),
                   );
                 } else {
                   print('Falha no cadastro');
-                  // Mostre uma mensagem de erro ou alerta
                 }
               },
               child: Text("Cadastrar"),
@@ -133,12 +117,10 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   bool validarSenha(String senha) {
-    return senha.isNotEmpty &&
-        senha.length >= 6; // Senha com no mínimo 6 caracteres
+    return senha.isNotEmpty && senha.length >= 6;
   }
 
   bool validarEmail(String email) {
-    // Expressão regular para validação de email
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = RegExp(pattern.toString());
