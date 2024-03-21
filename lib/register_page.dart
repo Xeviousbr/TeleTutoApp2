@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tele_tudo_app/HomePage.dart';
+import 'package:tele_tudo_app/api.Dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -70,6 +71,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 String email = _emailController.text;
                 String senha = _passwordController.text;
                 String cnh = _cnhController.text;
+                String telefone = _phoneController.text;
+                String documentoVeiculo = _vehicleDocController.text;
                 if (!validarNome(nome)) {
                   mostrarMensagem(
                       context, 'Por favor, insira o nome completo.');
@@ -93,15 +96,17 @@ class _RegisterPageState extends State<RegisterPage> {
                   );
                   return; // Interrompe a execução se a CNH for inválida
                 }
-                // bool registrationSuccessful = await API.registerUser(user, password);
-                bool registrationSuccessful = true;
-                if (registrationSuccessful) {
+                bool Cadastrado = await API.registerUser(
+                    nome, email, senha, telefone, cnh, documentoVeiculo);
+                if (Cadastrado) {
                   print('Cadastro bem-sucedido');
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => HomePage()),
                   );
                 } else {
                   print('Falha no cadastro');
+                  mostrarMensagem(context,
+                      'Falha no cadastro. Por favor, tente novamente.');
                 }
               },
               child: Text("Cadastrar"),
