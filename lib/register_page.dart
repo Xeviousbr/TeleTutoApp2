@@ -14,6 +14,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _phoneController = TextEditingController();
   final _cnhController = TextEditingController();
   final _vehicleDocController = TextEditingController();
+  final _pix = TextEditingController();
 
   @override
   void dispose() {
@@ -23,6 +24,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _phoneController.dispose();
     _cnhController.dispose();
     _vehicleDocController.dispose();
+    _pix.dispose();
     super.dispose();
   }
 
@@ -64,6 +66,10 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: _vehicleDocController,
               decoration: InputDecoration(labelText: 'Documento do Veículo'),
             ),
+            TextField(
+              controller: _pix,
+              decoration: InputDecoration(labelText: 'PIX'),
+            ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
@@ -73,6 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 String cnh = _cnhController.text;
                 String telefone = _phoneController.text;
                 String documentoVeiculo = _vehicleDocController.text;
+                String PIX = _pix.text;
                 if (!validarNome(nome)) {
                   mostrarMensagem(
                       context, 'Por favor, insira o nome completo.');
@@ -97,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   return; // Interrompe a execução se a CNH for inválida
                 }
                 bool Cadastrado = await API.registerUser(
-                    nome, email, senha, telefone, cnh, documentoVeiculo);
+                    nome, email, senha, telefone, cnh, documentoVeiculo, PIX);
                 if (Cadastrado) {
                   print('Cadastro bem-sucedido');
                   Navigator.of(context).pushReplacement(

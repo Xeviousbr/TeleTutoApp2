@@ -33,7 +33,7 @@ class API {
     }
   }
 
-static Future<bool> registerUser(String nome, String email, String senha, String telefone, String cnh, String documentoVeiculo) async {
+static Future<bool> registerUser(String nome, String email, String senha, String telefone, String cnh, String documentoVeiculo, String PIX) async {
   String baseUrl = "https://teletudo.com/api/cadboy";
   final response = await http.post(
     Uri.parse(baseUrl),
@@ -48,6 +48,7 @@ static Future<bool> registerUser(String nome, String email, String senha, String
       'telefone': telefone,
       'cnh': cnh,
       'documento_veiculo': documentoVeiculo,
+      'PIX': PIX,
     }),
   );
   if (response.statusCode == 200 || response.statusCode == 201) {
