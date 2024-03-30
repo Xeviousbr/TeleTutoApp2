@@ -13,7 +13,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordController = TextEditingController();
   final _phoneController = TextEditingController();
   final _cnhController = TextEditingController();
-  final _vehicleDocController = TextEditingController();
+  final _placaController = TextEditingController();
   final _pix = TextEditingController();
 
   @override
@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     _phoneController.dispose();
     _cnhController.dispose();
-    _vehicleDocController.dispose();
+    _placaController.dispose();
     _pix.dispose();
     super.dispose();
   }
@@ -63,8 +63,8 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: InputDecoration(labelText: 'CNH'),
             ),
             TextField(
-              controller: _vehicleDocController,
-              decoration: InputDecoration(labelText: 'Documento do Veículo'),
+              controller: _placaController,
+              decoration: InputDecoration(labelText: 'Placa'),
             ),
             TextField(
               controller: _pix,
@@ -78,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 String senha = _passwordController.text;
                 String cnh = _cnhController.text;
                 String telefone = _phoneController.text;
-                String documentoVeiculo = _vehicleDocController.text;
+                String placa = _placaController.text;
                 String PIX = _pix.text;
                 if (!validarNome(nome)) {
                   mostrarMensagem(
@@ -103,8 +103,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   );
                   return; // Interrompe a execução se a CNH for inválida
                 }
+                if (!validarPlaca(placa)) {
+                  mostrarMensagem(
+                      context, 'Por favor, insira uma placa válida.');
+                  return;
+                }
                 bool Cadastrado = await API.registerUser(
-                    nome, email, senha, telefone, cnh, documentoVeiculo, PIX);
+                    nome, email, senha, telefone, cnh, placa, PIX);
                 if (Cadastrado) {
                   print('Cadastro bem-sucedido');
                   Navigator.of(context).pushReplacement(
@@ -122,6 +127,11 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  bool validarPlaca(String placa) {
+    RegExp regex = RegExp(r'^[A-Z]{3}-[0-9]{4}$|^[A-Z]{3}[0-9][A-Z][0-9]{2}$');
+    return regex.hasMatch(placa);
   }
 
   bool validarNome(String nome) {

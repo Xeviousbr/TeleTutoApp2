@@ -49,7 +49,10 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () async {
                 String user = _userController.text;
                 String password = _passwordController.text;
-                bool loginSuccessful = await API.veLogin(user, password);
+                double lat = 0.0;
+                double lon = 0.0;
+                bool loginSuccessful =
+                    await API.veLogin(user, password, lat, lon);
                 if (loginSuccessful) {
                   print("Login bem-sucedido!");
                   Navigator.of(context).pushReplacement(
