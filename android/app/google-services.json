@@ -1,0 +1,52 @@
+{
+  "project_info": {
+    "project_number": "393650997319",
+    "firebase_url": "https://entregatudo-e695a.firebaseio.com",
+    "project_id": "entregatudo-e695a",
+    "storage_bucket": "entregatudo-e695a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789012:android:0a1b2c3d4e5f67890d",  // Este valor também deve ser fornecido pelo Firebase quando você registra seu app
+        "android_client_info": {
+          "package_name": "com.example.tele_tudo_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123456789012-abcd1234efgh5678ijkl9012mnop3456.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tele_tudo_app",
+            "certificate_hash": "abcdef123456"  // Este valor é específico para cada aplicativo e deve ser gerado com base em sua chave de assinatura
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-ABCDE12FghIJKLMnoPQRsTuVwxyz"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123456789012-abcd1234efgh5678ijkl9012mnop3456.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "google_analytics_service": {
+          "status": 1,
+          "account_id": "1234567890"
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "token": "abcdefg1234567"
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

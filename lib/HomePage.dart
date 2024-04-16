@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    chamaHeartbeat();
     super.initState();
     _startHeartbeatTimer();
   }
@@ -30,7 +31,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Inicializa();
     return Scaffold(
       appBar: AppBar(
         title: Text('teletudo App'),
@@ -39,14 +39,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> Inicializa() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? userid = prefs.getInt('ID');
-  }
-
   void _startHeartbeatTimer() {
     _timer = Timer.periodic(Duration(minutes: 1), (timer) async {
-      // await API.sendHeartbeat(); // ERRO AQUI
+      chamaHeartbeat();
     });
+  }
+
+  Future<void> chamaHeartbeat() async {
+    await API.sendHeartbeat();
   }
 }
