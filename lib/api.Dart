@@ -20,6 +20,7 @@ class API {
       }),
     );
     if (response.statusCode == 200) {
+      print('200');
       var ret = json.decode(response.body);
       final int erro = ret["Erro"] ?? 1;
       if (erro == 0) {
@@ -31,6 +32,7 @@ class API {
         return false;
       }
     } else {
+      print('return false');
       return false;
     }
   }
@@ -64,7 +66,61 @@ static Future<bool> registerUser(String nome, String email, String senha, String
   }
 }
 
-static Future<void> sendHeartbeat() async {
+ static Future<void> sendToken(String token) async {
+    print("dentro de sendToken");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? userid = prefs.getInt('ID');  
+    if (userid != null) {
+      String baseUrl = "https://teletudo.com/api/token";
+      final response = await http.post(
+        Uri.parse(baseUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode({
+          'userid': userid,
+          'token': token,
+        }),
+      );
+      if (response.statusCode == 200) {
+        print('Token enviado com sucesso');
+      } else {
+        print('Erro ao enviar token: ${response.statusCode}');
+      }
+    } else {
+      print('ID do usuário não disponível');
+    }
+  } 
+
+  static Future<void> sendTokenToServer(String token) async {
+    print("dentro de sendToken");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? userid = prefs.getInt('ID');
+    if (userid != null) {
+      String baseUrl = "https://teletudo.com/api/token";
+      final response = await http.post(
+        Uri.parse(baseUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode({
+          'userid': userid,
+          'token': token,
+        }),
+      );
+      if (response.statusCode == 200) {
+        print('Token enviado com sucesso');
+      } else {
+        print('Erro ao enviar token: ${response.statusCode}');
+      }
+    } else {
+      print('ID do usuário não disponível');
+    }
+  }  
+
+  static Future<void> sendHeartbeat() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? userid = prefs.getInt('ID');
     double lat = 0.0; 

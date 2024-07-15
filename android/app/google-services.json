@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:123456789012:android:0a1b2c3d4e5f67890d",  // Este valor também deve ser fornecido pelo Firebase quando você registra seu app
+        "mobilesdk_app_id": "1:123456789012:android:0a1b2c3d4e5f67890d",  
         "android_client_info": {
           "package_name": "com.example.tele_tudo_app"
         }
@@ -19,7 +19,7 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.tele_tudo_app",
-            "certificate_hash": "abcdef123456"  // Este valor é específico para cada aplicativo e deve ser gerado com base em sua chave de assinatura
+            "certificate_hash": "abcdef123456" 
           }
         }
       ],

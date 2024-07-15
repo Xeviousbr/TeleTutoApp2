@@ -14,16 +14,14 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^2.27.0
+  firebase_messaging: ^14.7.19
+  universal_platform: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  # firebase_core: ^10.1.1
-  # firebase_messaging: ^20.2.0
-
   flutter_lints: ^2.0.0
 
 flutter:
-
   uses-material-design: true
 

@@ -38,7 +38,7 @@ class _LifeCycleStateState extends State<LifeCycleState>
   }
 
   void sendStatusToServer(String status) async {
-    final deviceId = 'my_device_id';
+    const deviceId = 'my_device_id';
     final response = await http.post(
       Uri.parse('http://your-server.com/api/status'),
       body: {

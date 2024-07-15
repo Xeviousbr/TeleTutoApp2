@@ -3,6 +3,8 @@ import 'package:tele_tudo_app/HomePage.dart';
 import 'package:tele_tudo_app/api.Dart';
 
 class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
@@ -32,45 +34,45 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro de Motoboy'),
+        title: const Text('Cadastro de Motoboy'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: 'Nome Completo'),
+              decoration: const InputDecoration(labelText: 'Nome Completo'),
             ),
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email'),
               keyboardType: TextInputType.emailAddress,
             ),
             TextField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Senha'),
+              decoration: const InputDecoration(labelText: 'Senha'),
               obscureText: true,
             ),
             TextField(
               controller: _phoneController,
-              decoration: InputDecoration(labelText: 'Telefone'),
+              decoration: const InputDecoration(labelText: 'Telefone'),
               keyboardType: TextInputType.phone,
             ),
             TextField(
               controller: _cnhController,
-              decoration: InputDecoration(labelText: 'CNH'),
+              decoration: const InputDecoration(labelText: 'CNH'),
             ),
             TextField(
               controller: _placaController,
-              decoration: InputDecoration(labelText: 'Placa'),
+              decoration: const InputDecoration(labelText: 'Placa'),
             ),
             TextField(
               controller: _pix,
-              decoration: InputDecoration(labelText: 'PIX'),
+              decoration: const InputDecoration(labelText: 'PIX'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
                 String nome = _nameController.text;
@@ -97,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 }
                 if (!validarCNH(_cnhController.text)) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                         content: Text(
                             'CNH inválida. Por favor, verifique o número informado.')),
                   );
@@ -113,7 +115,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 if (Cadastrado) {
                   print('Cadastro bem-sucedido');
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => const HomePage()),
                   );
                 } else {
                   print('Falha no cadastro');
@@ -121,7 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       'Falha no cadastro. Por favor, tente novamente.');
                 }
               },
-              child: Text("Cadastrar"),
+              child: const Text("Cadastrar"),
             ),
           ],
         ),
