@@ -1,9 +1,9 @@
-import 'api.dart';
 import 'dart:math';
-import 'register_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:tele_tudo_app/HomePage.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:tele_tudo_app/api.dart';
+import 'package:tele_tudo_app/register_page.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 void main() => runApp(const MyApp());
@@ -61,24 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                     await API.veLogin(user, password, lat, lon);
                 if (loginSuccessful) {
                   print("Depois do Login.");
-
-                  if (UniversalPlatform.isAndroid) {
-                    FirebaseMessaging.instance.getToken().then((token) {
-                      if (token != null) {
-                        print("Token recebido: $token");
-                        API.sendTokenToServer(token);
-                      } else {
-                        print("Token é null");
-                      }
-                    }).catchError((error) {
-                      print("Erro ao obter o token: $error");
-                    });
-                  } else {
-                    String fakeToken =
-                        "fake_" + Random().nextInt(999999).toString();
-                    print("Token falso gerado: $fakeToken");
-                    API.sendTokenToServer(fakeToken);
-                  }
+                  getTokenAndHandle();
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => const HomePage()),
                   );
@@ -102,5 +85,32 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void getTokenAndHandle() {
+    if (UniversalPlatform.isAndroid) {
+      FirebaseMessaging.instance.getToken().then((token) {
+        if (token != null) {
+          print("Token recebido: $token");
+          API.sendTokenToServer(token);
+        } else {
+          print("Token é null");
+          showSnackbar("Falha ao obter token: Token é nulo.");
+        }
+      }).catchError((error) {
+        print("Erro ao obter o token: $error");
+        showSnackbar("Erro ao obter token: $error");
+      });
+    } else {
+      String fakeToken = "fake_" + Random().nextInt(999999).toString();
+      print("Token falso gerado: $fakeToken");
+      API.sendTokenToServer(fakeToken);
+    }
+  }
+
+  void showSnackbar(String message) {
+    final snackBar = SnackBar(content: Text(message));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(snackBar); // Modificado para usar ScaffoldMessenger
   }
 }
